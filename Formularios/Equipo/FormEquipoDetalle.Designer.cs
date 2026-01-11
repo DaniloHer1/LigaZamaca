@@ -53,9 +53,16 @@
             this.lblObligatorio = new System.Windows.Forms.Label();
             this.panelBotones = new System.Windows.Forms.Panel();
             this.lblTitulo = new System.Windows.Forms.Label();
+            this.pictureBoxEscudo = new System.Windows.Forms.PictureBox();
+            this.btnExaminar = new System.Windows.Forms.Button();
+            this.lblVistaPrevia = new System.Windows.Forms.Label();
+            this.btnCopiarProyecto = new System.Windows.Forms.Button();
+            this.panelImagen = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.numPresupuesto)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.panelBotones.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxEscudo)).BeginInit();
+            this.panelImagen.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblNombre
@@ -83,7 +90,7 @@
             this.lblEstadio.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
             this.lblEstadio.Location = new System.Drawing.Point(30, 110);
             this.lblEstadio.Name = "lblEstadio";
-            this.lblEstadio.Size = new System.Drawing.Size(67, 17);
+            this.lblEstadio.Size = new System.Drawing.Size(69, 17);
             this.lblEstadio.TabIndex = 2;
             this.lblEstadio.Text = "Estadio: *";
             // 
@@ -102,7 +109,7 @@
             this.lblCiudad.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
             this.lblCiudad.Location = new System.Drawing.Point(30, 150);
             this.lblCiudad.Name = "lblCiudad";
-            this.lblCiudad.Size = new System.Drawing.Size(65, 17);
+            this.lblCiudad.Size = new System.Drawing.Size(66, 17);
             this.lblCiudad.TabIndex = 4;
             this.lblCiudad.Text = "Ciudad: *";
             // 
@@ -159,7 +166,7 @@
             this.lblTelefono.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.lblTelefono.Location = new System.Drawing.Point(30, 270);
             this.lblTelefono.Name = "lblTelefono";
-            this.lblTelefono.Size = new System.Drawing.Size(61, 17);
+            this.lblTelefono.Size = new System.Drawing.Size(62, 17);
             this.lblTelefono.TabIndex = 10;
             this.lblTelefono.Text = "Teléfono:";
             // 
@@ -178,7 +185,7 @@
             this.lblEscudo.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.lblEscudo.Location = new System.Drawing.Point(30, 310);
             this.lblEscudo.Name = "lblEscudo";
-            this.lblEscudo.Size = new System.Drawing.Size(88, 17);
+            this.lblEscudo.Size = new System.Drawing.Size(93, 17);
             this.lblEscudo.TabIndex = 12;
             this.lblEscudo.Text = "Escudo (URL):";
             // 
@@ -190,15 +197,16 @@
             this.txtEscudo.Name = "txtEscudo";
             this.txtEscudo.Size = new System.Drawing.Size(300, 25);
             this.txtEscudo.TabIndex = 13;
+            this.txtEscudo.TextChanged += new System.EventHandler(this.txtEscudo_TextChanged);
             // 
             // lblFechaFundacion
             // 
             this.lblFechaFundacion.AutoSize = true;
             this.lblFechaFundacion.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.lblFechaFundacion.Location = new System.Drawing.Point(30, 350);
+            this.lblFechaFundacion.Location = new System.Drawing.Point(30, 390);
             this.lblFechaFundacion.Name = "lblFechaFundacion";
-            this.lblFechaFundacion.Size = new System.Drawing.Size(107, 17);
-            this.lblFechaFundacion.TabIndex = 14;
+            this.lblFechaFundacion.Size = new System.Drawing.Size(108, 17);
+            this.lblFechaFundacion.TabIndex = 16;
             this.lblFechaFundacion.Text = "Fecha Fundación:";
             // 
             // dtpFechaFundacion
@@ -206,27 +214,27 @@
             this.dtpFechaFundacion.Checked = false;
             this.dtpFechaFundacion.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.dtpFechaFundacion.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpFechaFundacion.Location = new System.Drawing.Point(160, 347);
+            this.dtpFechaFundacion.Location = new System.Drawing.Point(160, 387);
             this.dtpFechaFundacion.Name = "dtpFechaFundacion";
             this.dtpFechaFundacion.ShowCheckBox = true;
             this.dtpFechaFundacion.Size = new System.Drawing.Size(200, 25);
-            this.dtpFechaFundacion.TabIndex = 15;
+            this.dtpFechaFundacion.TabIndex = 17;
             // 
             // lblPresupuesto
             // 
             this.lblPresupuesto.AutoSize = true;
             this.lblPresupuesto.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.lblPresupuesto.Location = new System.Drawing.Point(30, 390);
+            this.lblPresupuesto.Location = new System.Drawing.Point(30, 430);
             this.lblPresupuesto.Name = "lblPresupuesto";
-            this.lblPresupuesto.Size = new System.Drawing.Size(102, 17);
-            this.lblPresupuesto.TabIndex = 16;
+            this.lblPresupuesto.Size = new System.Drawing.Size(105, 17);
+            this.lblPresupuesto.TabIndex = 18;
             this.lblPresupuesto.Text = "Presupuesto (€):";
             // 
             // numPresupuesto
             // 
             this.numPresupuesto.DecimalPlaces = 2;
             this.numPresupuesto.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.numPresupuesto.Location = new System.Drawing.Point(160, 387);
+            this.numPresupuesto.Location = new System.Drawing.Point(160, 427);
             this.numPresupuesto.Maximum = new decimal(new int[] {
             1410065407,
             2,
@@ -234,7 +242,7 @@
             0});
             this.numPresupuesto.Name = "numPresupuesto";
             this.numPresupuesto.Size = new System.Drawing.Size(200, 25);
-            this.numPresupuesto.TabIndex = 17;
+            this.numPresupuesto.TabIndex = 19;
             this.numPresupuesto.ThousandsSeparator = true;
             // 
             // btnGuardar
@@ -244,10 +252,10 @@
             this.btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGuardar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.btnGuardar.ForeColor = System.Drawing.Color.White;
-            this.btnGuardar.Location = new System.Drawing.Point(140, 15);
+            this.btnGuardar.Location = new System.Drawing.Point(210, 15);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(120, 40);
-            this.btnGuardar.TabIndex = 18;
+            this.btnGuardar.TabIndex = 20;
             this.btnGuardar.Text = "💾 Guardar";
             this.btnGuardar.UseVisualStyleBackColor = false;
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
@@ -260,10 +268,10 @@
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.btnCancelar.ForeColor = System.Drawing.Color.White;
-            this.btnCancelar.Location = new System.Drawing.Point(275, 15);
+            this.btnCancelar.Location = new System.Drawing.Point(345, 15);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(120, 40);
-            this.btnCancelar.TabIndex = 19;
+            this.btnCancelar.TabIndex = 21;
             this.btnCancelar.Text = "❌ Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = false;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
@@ -278,10 +286,10 @@
             this.lblObligatorio.AutoSize = true;
             this.lblObligatorio.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Italic);
             this.lblObligatorio.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(67)))), ((int)(((byte)(54)))));
-            this.lblObligatorio.Location = new System.Drawing.Point(30, 430);
+            this.lblObligatorio.Location = new System.Drawing.Point(30, 470);
             this.lblObligatorio.Name = "lblObligatorio";
-            this.lblObligatorio.Size = new System.Drawing.Size(113, 13);
-            this.lblObligatorio.TabIndex = 20;
+            this.lblObligatorio.Size = new System.Drawing.Size(123, 13);
+            this.lblObligatorio.TabIndex = 22;
             this.lblObligatorio.Text = "* Campos obligatorios";
             // 
             // panelBotones
@@ -290,10 +298,10 @@
             this.panelBotones.Controls.Add(this.btnGuardar);
             this.panelBotones.Controls.Add(this.btnCancelar);
             this.panelBotones.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelBotones.Location = new System.Drawing.Point(0, 470);
+            this.panelBotones.Location = new System.Drawing.Point(0, 510);
             this.panelBotones.Name = "panelBotones";
-            this.panelBotones.Size = new System.Drawing.Size(504, 70);
-            this.panelBotones.TabIndex = 21;
+            this.panelBotones.Size = new System.Drawing.Size(694, 70);
+            this.panelBotones.TabIndex = 23;
             // 
             // lblTitulo
             // 
@@ -302,9 +310,73 @@
             this.lblTitulo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
             this.lblTitulo.Location = new System.Drawing.Point(28, 20);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(163, 25);
-            this.lblTitulo.TabIndex = 22;
-            this.lblTitulo.Text = "Datos del Equipo";
+            this.lblTitulo.Size = new System.Drawing.Size(205, 25);
+            this.lblTitulo.TabIndex = 24;
+            this.lblTitulo.Text = "📝 Datos del Equipo";
+            // 
+            // pictureBoxEscudo
+            // 
+            this.pictureBoxEscudo.BackColor = System.Drawing.Color.White;
+            this.pictureBoxEscudo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBoxEscudo.Location = new System.Drawing.Point(10, 30);
+            this.pictureBoxEscudo.Name = "pictureBoxEscudo";
+            this.pictureBoxEscudo.Size = new System.Drawing.Size(150, 150);
+            this.pictureBoxEscudo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBoxEscudo.TabIndex = 25;
+            this.pictureBoxEscudo.TabStop = false;
+            // 
+            // btnExaminar
+            // 
+            this.btnExaminar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
+            this.btnExaminar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExaminar.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnExaminar.ForeColor = System.Drawing.Color.White;
+            this.btnExaminar.Location = new System.Drawing.Point(10, 190);
+            this.btnExaminar.Name = "btnExaminar";
+            this.btnExaminar.Size = new System.Drawing.Size(150, 30);
+            this.btnExaminar.TabIndex = 14;
+            this.btnExaminar.Text = "📁 Examinar...";
+            this.btnExaminar.UseVisualStyleBackColor = false;
+            this.btnExaminar.Click += new System.EventHandler(this.btnExaminar_Click);
+            // 
+            // lblVistaPrevia
+            // 
+            this.lblVistaPrevia.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblVistaPrevia.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
+            this.lblVistaPrevia.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.lblVistaPrevia.Location = new System.Drawing.Point(0, 0);
+            this.lblVistaPrevia.Name = "lblVistaPrevia";
+            this.lblVistaPrevia.Size = new System.Drawing.Size(172, 25);
+            this.lblVistaPrevia.TabIndex = 26;
+            this.lblVistaPrevia.Text = "🖼️ Vista Previa";
+            this.lblVistaPrevia.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnCopiarProyecto
+            // 
+            this.btnCopiarProyecto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(103)))), ((int)(((byte)(58)))), ((int)(((byte)(183)))));
+            this.btnCopiarProyecto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCopiarProyecto.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold);
+            this.btnCopiarProyecto.ForeColor = System.Drawing.Color.White;
+            this.btnCopiarProyecto.Location = new System.Drawing.Point(10, 226);
+            this.btnCopiarProyecto.Name = "btnCopiarProyecto";
+            this.btnCopiarProyecto.Size = new System.Drawing.Size(150, 25);
+            this.btnCopiarProyecto.TabIndex = 15;
+            this.btnCopiarProyecto.Text = "💾 Copiar al Proyecto";
+            this.btnCopiarProyecto.UseVisualStyleBackColor = false;
+            this.btnCopiarProyecto.Click += new System.EventHandler(this.btnCopiarProyecto_Click);
+            // 
+            // panelImagen
+            // 
+            this.panelImagen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+            this.panelImagen.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelImagen.Controls.Add(this.lblVistaPrevia);
+            this.panelImagen.Controls.Add(this.pictureBoxEscudo);
+            this.panelImagen.Controls.Add(this.btnCopiarProyecto);
+            this.panelImagen.Controls.Add(this.btnExaminar);
+            this.panelImagen.Location = new System.Drawing.Point(490, 67);
+            this.panelImagen.Name = "panelImagen";
+            this.panelImagen.Size = new System.Drawing.Size(174, 265);
+            this.panelImagen.TabIndex = 27;
             // 
             // FormEquipoDetalle
             // 
@@ -313,7 +385,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.CancelButton = this.btnCancelar;
-            this.ClientSize = new System.Drawing.Size(504, 540);
+            this.ClientSize = new System.Drawing.Size(694, 580);
+            this.Controls.Add(this.panelImagen);
             this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.panelBotones);
             this.Controls.Add(this.lblObligatorio);
@@ -345,6 +418,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numPresupuesto)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.panelBotones.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxEscudo)).EndInit();
+            this.panelImagen.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -376,5 +451,10 @@
         private System.Windows.Forms.Label lblObligatorio;
         private System.Windows.Forms.Panel panelBotones;
         private System.Windows.Forms.Label lblTitulo;
+        private System.Windows.Forms.PictureBox pictureBoxEscudo;
+        private System.Windows.Forms.Button btnExaminar;
+        private System.Windows.Forms.Label lblVistaPrevia;
+        private System.Windows.Forms.Button btnCopiarProyecto;
+        private System.Windows.Forms.Panel panelImagen;
     }
 }
