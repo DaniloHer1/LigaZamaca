@@ -24,6 +24,8 @@ namespace LigaZamaca.Modelos
         public bool Activo { get; set; }
         public DateTime FechaAlta { get; set; }
 
+        public string NombreEquipo { get; set; }
+
         public Jugador()
         {
 

@@ -76,12 +76,15 @@ namespace LigaZamaca.AccesoDatos
                 {
                     conn.Open();
 
-                    string query = @"SELECT IdJugador, IdEquipo, Nombre, Apellidos, FechaNacimiento, 
-                                           Posicion, Dorsal, Nacionalidad, Altura, Peso, Foto, 
-                                           Activo, FechaAlta 
-                                    FROM Jugadores 
-                                    WHERE Activo = 1
-                                    ORDER BY Apellidos, Nombre";
+                    string query = @"SELECT j.IdJugador, j.IdEquipo, j.Nombre, j.Apellidos, 
+                                   j.FechaNacimiento, j.Posicion, j.Dorsal, 
+                                   j.Nacionalidad, j.Altura, j.Peso, j.Foto, 
+                                   j.Activo, j.FechaAlta,
+                                   e.Nombre AS NombreEquipo
+                            FROM Jugadores j
+                            INNER JOIN Equipos e ON j.IdEquipo = e.IdEquipo
+                            WHERE j.Activo = 1
+                            ORDER BY j.Apellidos, j.Nombre";
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     using (SqlDataReader reader = cmd.ExecuteReader())
@@ -112,11 +115,14 @@ namespace LigaZamaca.AccesoDatos
                 {
                     conn.Open();
 
-                    string query = @"SELECT IdJugador, IdEquipo, Nombre, Apellidos, FechaNacimiento, 
-                                           Posicion, Dorsal, Nacionalidad, Altura, Peso, Foto, 
-                                           Activo, FechaAlta 
-                                    FROM Jugadores 
-                                    WHERE IdJugador = @IdJugador";
+                    string query = @"SELECT j.IdJugador, j.IdEquipo, j.Nombre, j.Apellidos, 
+                                   j.FechaNacimiento, j.Posicion, j.Dorsal, 
+                                   j.Nacionalidad, j.Altura, j.Peso, j.Foto, 
+                                   j.Activo, j.FechaAlta,
+                                   e.Nombre AS NombreEquipo
+                            FROM Jugadores j
+                            INNER JOIN Equipos e ON j.IdEquipo = e.IdEquipo
+                            WHERE j.IdJugador = @IdJugador";
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
@@ -153,12 +159,15 @@ namespace LigaZamaca.AccesoDatos
                 {
                     conn.Open();
 
-                    string query = @"SELECT IdJugador, IdEquipo, Nombre, Apellidos, FechaNacimiento, 
-                                           Posicion, Dorsal, Nacionalidad, Altura, Peso, Foto, 
-                                           Activo, FechaAlta 
-                                    FROM Jugadores 
-                                    WHERE IdEquipo = @IdEquipo AND Activo = 1
-                                    ORDER BY Dorsal";
+                    string query = @"SELECT j.IdJugador, j.IdEquipo, j.Nombre, j.Apellidos, 
+                                   j.FechaNacimiento, j.Posicion, j.Dorsal, 
+                                   j.Nacionalidad, j.Altura, j.Peso, j.Foto, 
+                                   j.Activo, j.FechaAlta,
+                                   e.Nombre AS NombreEquipo
+                            FROM Jugadores j
+                            INNER JOIN Equipos e ON j.IdEquipo = e.IdEquipo
+                            WHERE j.IdEquipo = @IdEquipo AND j.Activo = 1
+                            ORDER BY j.Apellidos, j.Nombre";
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
@@ -387,6 +396,7 @@ namespace LigaZamaca.AccesoDatos
 
         #endregion
 
+
         #region Métodos Auxiliares
 
         /// <summary>
@@ -399,6 +409,7 @@ namespace LigaZamaca.AccesoDatos
                 IdJugador = reader.GetInt32(reader.GetOrdinal("IdJugador")),
                 IdEquipo = reader.GetInt32(reader.GetOrdinal("IdEquipo")),
                 Nombre = reader.GetString(reader.GetOrdinal("Nombre")),
+                NombreEquipo = reader.GetString(reader.GetOrdinal("NombreEquipo")),                 
                 Apellidos = reader.GetString(reader.GetOrdinal("Apellidos")),
                 FechaNacimiento = reader.GetDateTime(reader.GetOrdinal("FechaNacimiento")),
                 Posicion = reader.GetString(reader.GetOrdinal("Posicion")),

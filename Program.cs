@@ -1,5 +1,6 @@
 ﻿using LigaZamaca.Formularios;
 using LigaZamaca.Formularios.Jugador;
+using LigaZamaca.Formularios.Partido;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace LigaZamaca
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormEquipos());
+            Application.Run(new FormPartidos());
         }
     }
 }
