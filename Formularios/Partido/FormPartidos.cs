@@ -59,7 +59,7 @@ namespace LigaZamaca.Formularios.Partido
             DataGridViewTextBoxColumn colFecha = new DataGridViewTextBoxColumn();
             colFecha.Name = "Fecha";
             colFecha.HeaderText = "Fecha";
-            colFecha.DataPropertyName = "Fecha";
+            colFecha.DataPropertyName = "FechaHora";
             colFecha.DefaultCellStyle.Format = "dd/MM/yyyy";
             colFecha.Width = 100;
             dataGridViewPartidos.Columns.Add(colFecha);

@@ -195,12 +195,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccesoDatos\ConexionBaseDatos.cs" />
+    <Compile Include="AccesoDatos\ClasificacionDAO.cs" />
     <Compile Include="AccesoDatos\ConexionSQLServer.cs" />
     <Compile Include="AccesoDatos\EquipoDAO.cs" />
     <Compile Include="AccesoDatos\EstadisticaDAO.cs" />
     <Compile Include="AccesoDatos\JugadorDAO.cs" />
     <Compile Include="AccesoDatos\PartidoDAO.cs" />
+    <Compile Include="Formularios\Clasificacion\FormClasificacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Clasificacion\FormClasificacion.Designer.cs">
+      <DependentUpon>FormClasificacion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Formularios\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -231,6 +237,12 @@
     <Compile Include="Formularios\Jugador\FormJugadorDetalle.Designer.cs">
       <DependentUpon>FormJugadorDetalle.cs</DependentUpon>
     </Compile>
+    <Compile Include="Formularios\Menu\FormMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Menu\FormMenu.Designer.cs">
+      <DependentUpon>FormMenu.cs</DependentUpon>
+    </Compile>
     <Compile Include="Formularios\Partido\FormPartidoDetalle.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -253,6 +265,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LigaFutbolDataSet1.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Modelos\Clasificacion.cs" />
     <Compile Include="Modelos\Equipo.cs" />
     <Compile Include="Modelos\Estadistica.cs" />
     <Compile Include="Modelos\Jugador.cs" />
@@ -273,6 +286,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Jugador\FormJugadorDetalle.resx">
       <DependentUpon>FormJugadorDetalle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Menu\FormMenu.resx">
+      <DependentUpon>FormMenu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Partido\FormPartidoDetalle.resx">
       <DependentUpon>FormPartidoDetalle.cs</DependentUpon>

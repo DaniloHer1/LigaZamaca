@@ -75,9 +75,9 @@
             this.lblTitulo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
             this.lblTitulo.Location = new System.Drawing.Point(12, 15);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(212, 25);
+            this.lblTitulo.Size = new System.Drawing.Size(185, 25);
             this.lblTitulo.TabIndex = 0;
-            this.lblTitulo.Text = "⚽ Detalles del Partido";
+            this.lblTitulo.Text = "Detalles del Partido";
             // 
             // groupBoxInfoBasica
             // 

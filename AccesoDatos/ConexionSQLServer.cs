@@ -11,8 +11,8 @@ namespace LigaZamaca.AccesoDatos
         #region Cadena de Conexión
 
 
-        // Clase 
-        //private static string connectionString ="Data Source=C08PC01\\SQLEXPRESS;Initial Catalog=LigaFutbol;Integrated Security=True;Encrypt=False;";
+        //Clase 
+       //private static string connectionString ="Data Source=C08PC01\\SQLEXPRESS;Initial Catalog=LigaFutbol;Integrated Security=True;Encrypt=False;";
 
         // Casa
         private static string connectionString =

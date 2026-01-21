@@ -93,7 +93,7 @@ namespace LigaZamaca.AccesoDatos
                                     FROM Partidos p
                                     INNER JOIN Equipos el ON p.IdEquipoLocal = el.IdEquipo
                                     INNER JOIN Equipos ev ON p.IdEquipoVisitante = ev.IdEquipo
-                                    ORDER BY p.Fecha DESC, p.Jornada DESC";
+                                    ORDER BY p.FechaHora DESC, p.Jornada DESC";
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     using (SqlDataReader reader = cmd.ExecuteReader())
@@ -257,6 +257,8 @@ namespace LigaZamaca.AccesoDatos
         /// <summary>
         /// Mapea un registro de la BD a un objeto Partido INCLUYENDO nombres de equipos
         /// </summary>
+        // Archivo: AccesoDatos/PartidoDAO.cs
+
         private Partido MapearPartidoConEquipos(SqlDataReader reader)
         {
             return new Partido
@@ -265,22 +267,37 @@ namespace LigaZamaca.AccesoDatos
                 IdEquipoLocal = reader.GetInt32(reader.GetOrdinal("IdEquipoLocal")),
                 IdEquipoVisitante = reader.GetInt32(reader.GetOrdinal("IdEquipoVisitante")),
 
-                // ⭐ Nombres de equipos
                 NombreEquipoLocal = reader.GetString(reader.GetOrdinal("NombreEquipoLocal")),
                 NombreEquipoVisitante = reader.GetString(reader.GetOrdinal("NombreEquipoVisitante")),
 
-                // ⭐ Usar el alias FechaPartido en lugar de Fecha
                 FechaHora = reader.GetDateTime(reader.GetOrdinal("FechaHora")),
-                Jornada = reader.GetInt32(reader.GetOrdinal("Jornada")),
-                GolesLocal = reader.GetInt32(reader.GetOrdinal("GolesLocal")),
-                GolesVisitante = reader.GetInt32(reader.GetOrdinal("GolesVisitante")),
-                Estadio = reader.GetString(reader.GetOrdinal("Estadio")),
+
+              
+                Jornada = reader.IsDBNull(reader.GetOrdinal("Jornada"))
+                    ? 0 : reader.GetInt32(reader.GetOrdinal("Jornada")),
+
+               
+                GolesLocal = reader.IsDBNull(reader.GetOrdinal("GolesLocal"))
+                    ? 0 : reader.GetInt32(reader.GetOrdinal("GolesLocal")),
+
+                GolesVisitante = reader.IsDBNull(reader.GetOrdinal("GolesVisitante"))
+                    ? 0 : reader.GetInt32(reader.GetOrdinal("GolesVisitante")),
+
+            
+                Estadio = reader.IsDBNull(reader.GetOrdinal("Estadio"))
+                    ? "Sin Estadio" : reader.GetString(reader.GetOrdinal("Estadio")),
+
                 Arbitro = reader.IsDBNull(reader.GetOrdinal("Arbitro"))
                     ? null : reader.GetString(reader.GetOrdinal("Arbitro")),
-                Estado = reader.GetString(reader.GetOrdinal("Estado")),
+
+                Estado = reader.IsDBNull(reader.GetOrdinal("Estado"))
+                    ? "Programado" : reader.GetString(reader.GetOrdinal("Estado")),
+
                 Asistencia = reader.IsDBNull(reader.GetOrdinal("Asistencia"))
                     ? (int?)null : reader.GetInt32(reader.GetOrdinal("Asistencia")),
-                FechaRegistro = reader.GetDateTime(reader.GetOrdinal("FechaRegistro"))
+
+                FechaRegistro = reader.IsDBNull(reader.GetOrdinal("FechaRegistro"))
+                    ? DateTime.Now : reader.GetDateTime(reader.GetOrdinal("FechaRegistro"))
             };
         }
 
