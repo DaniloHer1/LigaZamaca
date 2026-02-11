@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using LigaZamaca.Formularios.Clasificacion;
+using LigaZamaca.Formularios.Goleadores;
 using LigaZamaca.Formularios.Jugador;
 using LigaZamaca.Formularios.Partido;
 
@@ -62,14 +63,10 @@ namespace LigaZamaca.Formularios
         /// </summary>
         private void btnGoleadores_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Funcionalidad en desarrollo",
-                           "Próximamente",
-                           MessageBoxButtons.OK,
-                           MessageBoxIcon.Information);
-
-            // TODO: Cuando esté listo, descomentar:
-            // FormGoleadores formGoleadores = new FormGoleadores();
-            // formGoleadores.ShowDialog();
+         
+            
+             FormGoleadores formGoleadores = new FormGoleadores();
+             formGoleadores.ShowDialog();
         }
 
         /// <summary>

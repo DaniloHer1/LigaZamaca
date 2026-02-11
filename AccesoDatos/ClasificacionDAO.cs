@@ -23,11 +23,22 @@ namespace LigaZamaca.AccesoDatos
                 {
                     conn.Open();
 
-                    // Consulta a la vista ordenada por Puntos, Diferencia de Goles y Goles a Favor
-                    string query = @"SELECT IdEquipo, Equipo, Escudo, PJ, PG, PE, PP, 
-                                           GF, GC, DG, Puntos
-                                    FROM VistaClasificacion
-                                    ORDER BY Puntos DESC, DG DESC, GF DESC, Equipo ASC";
+                    // ✅ CORRECCIÓN: Usar los nombres de columna abreviados de la vista
+                    string query = @"
+                        SELECT 
+                            IdEquipo,
+                            Equipo,
+                            Escudo,
+                            PJ,
+                            PG,
+                            PE,
+                            PP,
+                            GF,
+                            GC,
+                            DG,
+                            Puntos
+                        FROM Vista_Clasificacion
+                        ORDER BY Puntos DESC, DG DESC, GF DESC";
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     using (SqlDataReader reader = cmd.ExecuteReader())
@@ -65,10 +76,21 @@ namespace LigaZamaca.AccesoDatos
                 {
                     conn.Open();
 
-                    string query = $@"SELECT TOP {cantidad} IdEquipo, Equipo, Escudo, PJ, PG, PE, PP, 
-                                            GF, GC, DG, Puntos
-                                     FROM VistaClasificacion
-                                     ORDER BY Puntos DESC, DG DESC, GF DESC, Equipo ASC";
+                    string query = $@"
+                        SELECT TOP {cantidad} 
+                            IdEquipo, 
+                            Equipo, 
+                            Escudo, 
+                            PJ, 
+                            PG, 
+                            PE, 
+                            PP, 
+                            GF, 
+                            GC, 
+                            DG, 
+                            Puntos
+                        FROM Vista_Clasificacion
+                        ORDER BY Puntos DESC, DG DESC, GF DESC";
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     using (SqlDataReader reader = cmd.ExecuteReader())

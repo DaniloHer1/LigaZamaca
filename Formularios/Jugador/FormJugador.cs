@@ -51,7 +51,7 @@ namespace LigaZamaca.Formularios.Jugador
             colID.Name = "IdJugador";
             colID.HeaderText = "ID";
             colID.DataPropertyName = "IdJugador";
-            colID.Visible = false; 
+            colID.Visible = false;
             dataGridViewJugador.Columns.Add(colID);
 
             // Columna Nombre
@@ -74,7 +74,7 @@ namespace LigaZamaca.Formularios.Jugador
             DataGridViewTextBoxColumn colFechaNacimiento = new DataGridViewTextBoxColumn();
             colFechaNacimiento.Name = "FechaNacimiento";
             colFechaNacimiento.HeaderText = "Fecha Nacimiento";
-            colFechaNacimiento.DataPropertyName = "FechaNacimiento";  
+            colFechaNacimiento.DataPropertyName = "FechaNacimiento";
             colFechaNacimiento.DefaultCellStyle.Format = "dd/MM/yyyy";
             colFechaNacimiento.Width = 120;
             dataGridViewJugador.Columns.Add(colFechaNacimiento);
@@ -250,12 +250,34 @@ namespace LigaZamaca.Formularios.Jugador
             {
                 btnModificarJugador.Enabled = true;
                 btnEliminar.Enabled = true;
+                bool haySeleccion = dataGridViewJugador.SelectedRows.Count > 0;
+                btnModificarJugador.Enabled = haySeleccion;
+                btnEliminar.Enabled = haySeleccion;
+                btnVerFicha.Enabled = haySeleccion;
             }
             else
             {
                 btnModificarJugador.Enabled = false;
                 btnEliminar.Enabled = false;
             }
+
+        }
+
+        /// <summary>
+        /// Botón Ver Ficha del jugador
+        /// </summary>    
+        private void btnVerFicha_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewJugador.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Por favor, selecciona un jugador",
+                               "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            int idJugador = Convert.ToInt32(dataGridViewJugador.SelectedRows[0].Cells["IdJugador"].Value);
+            FormFichaJugador formFicha = new FormFichaJugador(idJugador);
+            formFicha.ShowDialog();
         }
     }
 }

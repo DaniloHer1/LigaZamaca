@@ -38,6 +38,18 @@ namespace LigaZamaca.Formularios.Jugador
             this.lblTotal = new System.Windows.Forms.Label();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.panelBotones = new System.Windows.Forms.Panel();
+            this.btnVerFicha = new System.Windows.Forms.Button();
+            this.btnVerFicha.BackColor = System.Drawing.Color.FromArgb(156, 39, 176);
+            this.btnVerFicha.Enabled = false;
+            this.btnVerFicha.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnVerFicha.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
+            this.btnVerFicha.ForeColor = System.Drawing.Color.White;
+            this.btnVerFicha.Location = new System.Drawing.Point(465, 15);
+            this.btnVerFicha.Name = "btnVerFicha";
+            this.btnVerFicha.Size = new System.Drawing.Size(140, 40);
+            this.btnVerFicha.Text = "📋 Ver Ficha";
+            this.btnVerFicha.Click += new System.EventHandler(this.btnVerFicha_Click);
+            this.panelBotones.Controls.Add(this.btnVerFicha);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewJugador)).BeginInit();
             this.panelBotones.SuspendLayout();
             this.SuspendLayout();
@@ -173,5 +185,6 @@ namespace LigaZamaca.Formularios.Jugador
         private System.Windows.Forms.Label lblTotal;
         private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.Panel panelBotones;
+        private System.Windows.Forms.Button btnVerFicha;
     }
 }

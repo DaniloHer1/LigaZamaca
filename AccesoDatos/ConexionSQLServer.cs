@@ -12,11 +12,11 @@ namespace LigaZamaca.AccesoDatos
 
 
         //Clase 
-       //private static string connectionString ="Data Source=C08PC01\\SQLEXPRESS;Initial Catalog=LigaFutbol;Integrated Security=True;Encrypt=False;";
+      // private static string connectionString ="Data Source=C08PC01\\SQLEXPRESS;Initial Catalog=LigaFutbol;Integrated Security=True;Encrypt=False;";
+
 
         // Casa
-        private static string connectionString =
-    "Data Source=DESKTOP-IMQSUQB\\SQLEXPRESS;Initial Catalog=LigaFutbol;Integrated Security=True;Encrypt=False;";
+        private static string connectionString ="Data Source=DESKTOP-IMQSUQB\\SQLEXPRESS;Initial Catalog=LigaFutbol;Integrated Security=True;Encrypt=False;";
 
 
         #endregion

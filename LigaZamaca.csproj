@@ -199,6 +199,7 @@
     <Compile Include="AccesoDatos\ConexionSQLServer.cs" />
     <Compile Include="AccesoDatos\EquipoDAO.cs" />
     <Compile Include="AccesoDatos\EstadisticaDAO.cs" />
+    <Compile Include="AccesoDatos\GoleadorDAO.cs" />
     <Compile Include="AccesoDatos\JugadorDAO.cs" />
     <Compile Include="AccesoDatos\PartidoDAO.cs" />
     <Compile Include="Formularios\Clasificacion\FormClasificacion.cs">
@@ -224,6 +225,18 @@
     </Compile>
     <Compile Include="Formularios\Equipo\FormEquipos.Designer.cs">
       <DependentUpon>FormEquipos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Goleadores\FormGoleadores.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Goleadores\FormGoleadores.Designer.cs">
+      <DependentUpon>FormGoleadores.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Jugador\FormFichaJugador.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Jugador\FormFichaJugador.Designer.cs">
+      <DependentUpon>FormFichaJugador.cs</DependentUpon>
     </Compile>
     <Compile Include="Formularios\Jugador\FormJugador.cs">
       <SubType>Form</SubType>
@@ -270,6 +283,7 @@
     <Compile Include="Modelos\Estadistica.cs" />
     <Compile Include="Modelos\Jugador.cs" />
     <Compile Include="Modelos\Partido.cs" />
+    <Compile Include="Modelos\TopGoleador.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Formularios\Form1.resx">
@@ -280,6 +294,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Equipo\FormEquipos.resx">
       <DependentUpon>FormEquipos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Goleadores\FormGoleadores.resx">
+      <DependentUpon>FormGoleadores.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Jugador\FormFichaJugador.resx">
+      <DependentUpon>FormFichaJugador.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Jugador\FormJugador.resx">
       <DependentUpon>FormJugador.cs</DependentUpon>
