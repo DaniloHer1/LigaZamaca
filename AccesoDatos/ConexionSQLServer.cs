@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Data.SqlClient;
+using System.Configuration;
 
 namespace LigaZamaca.AccesoDatos
 {
@@ -11,12 +12,7 @@ namespace LigaZamaca.AccesoDatos
         #region Cadena de Conexión
 
 
-        //Clase 
-      // private static string connectionString ="Data Source=C08PC01\\SQLEXPRESS;Initial Catalog=LigaFutbol;Integrated Security=True;Encrypt=False;";
-
-
-        // Casa
-        private static string connectionString ="Data Source=DESKTOP-IMQSUQB\\SQLEXPRESS;Initial Catalog=LigaFutbol;Integrated Security=True;Encrypt=False;";
+        private static string connectionString = ConfigurationManager.ConnectionStrings["LigaConexion"].ConnectionString;
 
 
         #endregion
@@ -139,15 +135,14 @@ namespace LigaZamaca.AccesoDatos
         {
             try
             {
-                // Conectar a la base de datos master
-                string masterConnection = connectionString.Replace("Database=LigaFutbol", "Database=master");
+                // Usar un generador de cadenas de conexión para cambiar de base de datos de forma segura
+                var builder = new SqlConnectionStringBuilder(connectionString);
+                builder.InitialCatalog = "master";
 
-                using (SqlConnection connection = new SqlConnection(masterConnection))
+                using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
                 {
                     connection.Open();
-
                     string query = "SELECT COUNT(*) FROM sys.databases WHERE name = 'LigaFutbol'";
-
                     using (SqlCommand cmd = new SqlCommand(query, connection))
                     {
                         int count = Convert.ToInt32(cmd.ExecuteScalar());
