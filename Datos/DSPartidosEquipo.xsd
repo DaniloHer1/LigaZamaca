@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DSPartidosEquipo" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="DSPartidosEquipo" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="PartidosEquipo">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="IdPartido" type="xs:int" minOccurs="0" />
+              <xs:element name="Jornada" type="xs:int" minOccurs="0" />
+              <xs:element name="FechaHora" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Rival" type="xs:string" minOccurs="0" />
+              <xs:element name="EscudoRival" type="xs:string" minOccurs="0" />
+              <xs:element name="Local" type="xs:boolean" minOccurs="0" />
+              <xs:element name="GolesAFavor" type="xs:int" minOccurs="0" />
+              <xs:element name="GolesEnContra" type="xs:int" minOccurs="0" />
+              <xs:element name="Resultado" type="xs:string" minOccurs="0" />
+              <xs:element name="Puntos" type="xs:int" minOccurs="0" />
+              <xs:element name="Estado" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ResumenEquipo">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="IdEquipo" type="xs:int" minOccurs="0" />
+              <xs:element name="NombreEquipo" type="xs:string" minOccurs="0" />
+              <xs:element name="Escudo" type="xs:string" minOccurs="0" />
+              <xs:element name="PartidosJugados" type="xs:int" minOccurs="0" />
+              <xs:element name="Victorias" type="xs:int" minOccurs="0" />
+              <xs:element name="Empates" type="xs:int" minOccurs="0" />
+              <xs:element name="Derrotas" type="xs:int" minOccurs="0" />
+              <xs:element name="GolesAFavor" type="xs:int" minOccurs="0" />
+              <xs:element name="GolesEnContra" type="xs:int" minOccurs="0" />
+              <xs:element name="DiferenciaGoles" type="xs:int" minOccurs="0" />
+              <xs:element name="PuntosTotales" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,4 +1,4 @@
-﻿namespace LigaZamaca.Formularios
+﻿namespace LigaZamaca.Formularios.Menu
 {
     partial class FormMenu
     {
@@ -28,12 +28,35 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.menuStrip = new System.Windows.Forms.MenuStrip();
+            this.archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gestionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.equiposToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.jugadoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.partidosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.informesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clasificacionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.goleadoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.estadisticasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.manualUsuarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.acercaDeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabelIcono = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabelEstado = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabelSpring = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabelHoraIcono = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabelHora = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabelSeparador = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabelVersion = new System.Windows.Forms.ToolStripStatusLabel();
             this.panelSuperior = new System.Windows.Forms.Panel();
             this.lblFecha = new System.Windows.Forms.Label();
             this.lblSubtitulo = new System.Windows.Forms.Label();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.panelPrincipal = new System.Windows.Forms.Panel();
-            this.btnEstadisticas = new System.Windows.Forms.Button();
             this.btnGoleadores = new System.Windows.Forms.Button();
             this.btnClasificacion = new System.Windows.Forms.Button();
             this.btnPartidos = new System.Windows.Forms.Button();
@@ -42,28 +65,238 @@
             this.panelInferior = new System.Windows.Forms.Panel();
             this.btnAcercaDe = new System.Windows.Forms.Button();
             this.btnSalir = new System.Windows.Forms.Button();
+            this.manualTecnicoCHMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip.SuspendLayout();
+            this.statusStrip.SuspendLayout();
             this.panelSuperior.SuspendLayout();
             this.panelPrincipal.SuspendLayout();
             this.panelInferior.SuspendLayout();
             this.SuspendLayout();
             // 
+            // menuStrip
+            // 
+            this.menuStrip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.menuStrip.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.archivoToolStripMenuItem,
+            this.gestionToolStripMenuItem,
+            this.informesToolStripMenuItem,
+            this.ayudaToolStripMenuItem});
+            this.menuStrip.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip.Name = "menuStrip";
+            this.menuStrip.Padding = new System.Windows.Forms.Padding(8, 4, 0, 4);
+            this.menuStrip.Size = new System.Drawing.Size(900, 31);
+            this.menuStrip.TabIndex = 0;
+            this.menuStrip.Text = "menuStrip";
+            // 
+            // archivoToolStripMenuItem
+            // 
+            this.archivoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.salirToolStripMenuItem});
+            this.archivoToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.archivoToolStripMenuItem.Name = "archivoToolStripMenuItem";
+            this.archivoToolStripMenuItem.Size = new System.Drawing.Size(67, 23);
+            this.archivoToolStripMenuItem.Text = "&Archivo";
+            // 
+            // salirToolStripMenuItem
+            // 
+            this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
+            this.salirToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
+            this.salirToolStripMenuItem.Size = new System.Drawing.Size(154, 24);
+            this.salirToolStripMenuItem.Text = "&Salir";
+            this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
+            // 
+            // gestionToolStripMenuItem
+            // 
+            this.gestionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.equiposToolStripMenuItem,
+            this.jugadoresToolStripMenuItem,
+            this.partidosToolStripMenuItem});
+            this.gestionToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.gestionToolStripMenuItem.Name = "gestionToolStripMenuItem";
+            this.gestionToolStripMenuItem.Size = new System.Drawing.Size(68, 23);
+            this.gestionToolStripMenuItem.Text = "&Gestión";
+            // 
+            // equiposToolStripMenuItem
+            // 
+            this.equiposToolStripMenuItem.Name = "equiposToolStripMenuItem";
+            this.equiposToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
+            this.equiposToolStripMenuItem.Size = new System.Drawing.Size(186, 24);
+            this.equiposToolStripMenuItem.Text = "&Equipos";
+            this.equiposToolStripMenuItem.Click += new System.EventHandler(this.equiposToolStripMenuItem_Click);
+            // 
+            // jugadoresToolStripMenuItem
+            // 
+            this.jugadoresToolStripMenuItem.Name = "jugadoresToolStripMenuItem";
+            this.jugadoresToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.J)));
+            this.jugadoresToolStripMenuItem.Size = new System.Drawing.Size(186, 24);
+            this.jugadoresToolStripMenuItem.Text = "&Jugadores";
+            this.jugadoresToolStripMenuItem.Click += new System.EventHandler(this.jugadoresToolStripMenuItem_Click);
+            // 
+            // partidosToolStripMenuItem
+            // 
+            this.partidosToolStripMenuItem.Name = "partidosToolStripMenuItem";
+            this.partidosToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
+            this.partidosToolStripMenuItem.Size = new System.Drawing.Size(186, 24);
+            this.partidosToolStripMenuItem.Text = "&Partidos";
+            this.partidosToolStripMenuItem.Click += new System.EventHandler(this.partidosToolStripMenuItem_Click);
+            // 
+            // informesToolStripMenuItem
+            // 
+            this.informesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.clasificacionToolStripMenuItem,
+            this.goleadoresToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.estadisticasToolStripMenuItem});
+            this.informesToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.informesToolStripMenuItem.Name = "informesToolStripMenuItem";
+            this.informesToolStripMenuItem.Size = new System.Drawing.Size(75, 23);
+            this.informesToolStripMenuItem.Text = "&Informes";
+            // 
+            // clasificacionToolStripMenuItem
+            // 
+            this.clasificacionToolStripMenuItem.Name = "clasificacionToolStripMenuItem";
+            this.clasificacionToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
+            this.clasificacionToolStripMenuItem.Size = new System.Drawing.Size(201, 24);
+            this.clasificacionToolStripMenuItem.Text = "&Clasificación";
+            this.clasificacionToolStripMenuItem.Click += new System.EventHandler(this.clasificacionToolStripMenuItem_Click);
+            // 
+            // goleadoresToolStripMenuItem
+            // 
+            this.goleadoresToolStripMenuItem.Name = "goleadoresToolStripMenuItem";
+            this.goleadoresToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.G)));
+            this.goleadoresToolStripMenuItem.Size = new System.Drawing.Size(201, 24);
+            this.goleadoresToolStripMenuItem.Text = "&Goleadores";
+            this.goleadoresToolStripMenuItem.Click += new System.EventHandler(this.goleadoresToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(198, 6);
+            // 
+            // estadisticasToolStripMenuItem
+            // 
+            this.estadisticasToolStripMenuItem.Name = "estadisticasToolStripMenuItem";
+            this.estadisticasToolStripMenuItem.Size = new System.Drawing.Size(201, 24);
+            this.estadisticasToolStripMenuItem.Text = "&Estadísticas";
+            this.estadisticasToolStripMenuItem.Click += new System.EventHandler(this.estadisticasToolStripMenuItem_Click);
+            // 
+            // ayudaToolStripMenuItem
+            // 
+            this.ayudaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.manualUsuarioToolStripMenuItem,
+            this.manualTecnicoCHMToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.acercaDeToolStripMenuItem});
+            this.ayudaToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.ayudaToolStripMenuItem.Name = "ayudaToolStripMenuItem";
+            this.ayudaToolStripMenuItem.Size = new System.Drawing.Size(60, 23);
+            this.ayudaToolStripMenuItem.Text = "A&yuda";
+            // 
+            // manualUsuarioToolStripMenuItem
+            // 
+            this.manualUsuarioToolStripMenuItem.Name = "manualUsuarioToolStripMenuItem";
+            this.manualUsuarioToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1;
+            this.manualUsuarioToolStripMenuItem.Size = new System.Drawing.Size(218, 24);
+            this.manualUsuarioToolStripMenuItem.Text = "&Manual de Usuario";
+            this.manualUsuarioToolStripMenuItem.Click += new System.EventHandler(this.manualUsuarioToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(215, 6);
+            // 
+            // acercaDeToolStripMenuItem
+            // 
+            this.acercaDeToolStripMenuItem.Name = "acercaDeToolStripMenuItem";
+            this.acercaDeToolStripMenuItem.Size = new System.Drawing.Size(218, 24);
+            this.acercaDeToolStripMenuItem.Text = "&Acerca de...";
+            this.acercaDeToolStripMenuItem.Click += new System.EventHandler(this.acercaDeToolStripMenuItem_Click);
+            // 
+            // statusStrip
+            // 
+            this.statusStrip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.statusStrip.Font = new System.Drawing.Font("Segoe UI", 9.5F);
+            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabelIcono,
+            this.toolStripStatusLabelEstado,
+            this.toolStripStatusLabelSpring,
+            this.toolStripStatusLabelHoraIcono,
+            this.toolStripStatusLabelHora,
+            this.toolStripStatusLabelSeparador,
+            this.toolStripStatusLabelVersion});
+            this.statusStrip.Location = new System.Drawing.Point(0, 640);
+            this.statusStrip.Name = "statusStrip";
+            this.statusStrip.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
+            this.statusStrip.Size = new System.Drawing.Size(900, 22);
+            this.statusStrip.TabIndex = 1;
+            this.statusStrip.Text = "statusStrip";
+            // 
+            // toolStripStatusLabelIcono
+            // 
+            this.toolStripStatusLabelIcono.ForeColor = System.Drawing.Color.LimeGreen;
+            this.toolStripStatusLabelIcono.Name = "toolStripStatusLabelIcono";
+            this.toolStripStatusLabelIcono.Size = new System.Drawing.Size(16, 17);
+            this.toolStripStatusLabelIcono.Text = "●";
+            // 
+            // toolStripStatusLabelEstado
+            // 
+            this.toolStripStatusLabelEstado.ForeColor = System.Drawing.Color.White;
+            this.toolStripStatusLabelEstado.Name = "toolStripStatusLabelEstado";
+            this.toolStripStatusLabelEstado.Size = new System.Drawing.Size(71, 17);
+            this.toolStripStatusLabelEstado.Text = "Conectado";
+            // 
+            // toolStripStatusLabelSpring
+            // 
+            this.toolStripStatusLabelSpring.Name = "toolStripStatusLabelSpring";
+            this.toolStripStatusLabelSpring.Size = new System.Drawing.Size(672, 17);
+            this.toolStripStatusLabelSpring.Spring = true;
+            // 
+            // toolStripStatusLabelHoraIcono
+            // 
+            this.toolStripStatusLabelHoraIcono.ForeColor = System.Drawing.Color.LightGray;
+            this.toolStripStatusLabelHoraIcono.Name = "toolStripStatusLabelHoraIcono";
+            this.toolStripStatusLabelHoraIcono.Size = new System.Drawing.Size(26, 17);
+            this.toolStripStatusLabelHoraIcono.Text = "🕐";
+            // 
+            // toolStripStatusLabelHora
+            // 
+            this.toolStripStatusLabelHora.ForeColor = System.Drawing.Color.White;
+            this.toolStripStatusLabelHora.Name = "toolStripStatusLabelHora";
+            this.toolStripStatusLabelHora.Size = new System.Drawing.Size(56, 17);
+            this.toolStripStatusLabelHora.Text = "00:00:00";
+            // 
+            // toolStripStatusLabelSeparador
+            // 
+            this.toolStripStatusLabelSeparador.ForeColor = System.Drawing.Color.Gray;
+            this.toolStripStatusLabelSeparador.Name = "toolStripStatusLabelSeparador";
+            this.toolStripStatusLabelSeparador.Size = new System.Drawing.Size(11, 17);
+            this.toolStripStatusLabelSeparador.Text = "|";
+            // 
+            // toolStripStatusLabelVersion
+            // 
+            this.toolStripStatusLabelVersion.ForeColor = System.Drawing.Color.LightGray;
+            this.toolStripStatusLabelVersion.Name = "toolStripStatusLabelVersion";
+            this.toolStripStatusLabelVersion.Size = new System.Drawing.Size(31, 17);
+            this.toolStripStatusLabelVersion.Text = "v1.0";
+            // 
             // panelSuperior
             // 
-            this.panelSuperior.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.panelSuperior.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(71)))), ((int)(((byte)(42)))));
             this.panelSuperior.Controls.Add(this.lblFecha);
             this.panelSuperior.Controls.Add(this.lblSubtitulo);
             this.panelSuperior.Controls.Add(this.lblTitulo);
             this.panelSuperior.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelSuperior.Location = new System.Drawing.Point(0, 0);
+            this.panelSuperior.Location = new System.Drawing.Point(0, 31);
             this.panelSuperior.Name = "panelSuperior";
             this.panelSuperior.Size = new System.Drawing.Size(900, 120);
-            this.panelSuperior.TabIndex = 0;
+            this.panelSuperior.TabIndex = 2;
             // 
             // lblFecha
             // 
             this.lblFecha.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblFecha.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.lblFecha.ForeColor = System.Drawing.Color.White;
+            this.lblFecha.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.lblFecha.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.lblFecha.Location = new System.Drawing.Point(600, 85);
             this.lblFecha.Name = "lblFecha";
             this.lblFecha.Size = new System.Drawing.Size(285, 23);
@@ -96,34 +329,17 @@
             // panelPrincipal
             // 
             this.panelPrincipal.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.panelPrincipal.Controls.Add(this.btnEstadisticas);
             this.panelPrincipal.Controls.Add(this.btnGoleadores);
             this.panelPrincipal.Controls.Add(this.btnClasificacion);
             this.panelPrincipal.Controls.Add(this.btnPartidos);
             this.panelPrincipal.Controls.Add(this.btnJugadores);
             this.panelPrincipal.Controls.Add(this.btnEquipos);
             this.panelPrincipal.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelPrincipal.Location = new System.Drawing.Point(0, 120);
+            this.panelPrincipal.Location = new System.Drawing.Point(0, 151);
             this.panelPrincipal.Name = "panelPrincipal";
             this.panelPrincipal.Padding = new System.Windows.Forms.Padding(30);
-            this.panelPrincipal.Size = new System.Drawing.Size(900, 430);
-            this.panelPrincipal.TabIndex = 1;
-            // 
-            // btnEstadisticas
-            // 
-            this.btnEstadisticas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(103)))), ((int)(((byte)(58)))), ((int)(((byte)(183)))));
-            this.btnEstadisticas.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnEstadisticas.FlatAppearance.BorderSize = 0;
-            this.btnEstadisticas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEstadisticas.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
-            this.btnEstadisticas.ForeColor = System.Drawing.Color.White;
-            this.btnEstadisticas.Location = new System.Drawing.Point(470, 260);
-            this.btnEstadisticas.Name = "btnEstadisticas";
-            this.btnEstadisticas.Size = new System.Drawing.Size(400, 100);
-            this.btnEstadisticas.TabIndex = 5;
-            this.btnEstadisticas.Text = "📊 ESTADÍSTICAS\r\n";
-            this.btnEstadisticas.UseVisualStyleBackColor = false;
-            this.btnEstadisticas.Click += new System.EventHandler(this.btnEstadisticas_Click);
+            this.panelPrincipal.Size = new System.Drawing.Size(900, 429);
+            this.panelPrincipal.TabIndex = 3;
             // 
             // btnGoleadores
             // 
@@ -133,7 +349,7 @@
             this.btnGoleadores.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGoleadores.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
             this.btnGoleadores.ForeColor = System.Drawing.Color.White;
-            this.btnGoleadores.Location = new System.Drawing.Point(30, 260);
+            this.btnGoleadores.Location = new System.Drawing.Point(246, 279);
             this.btnGoleadores.Name = "btnGoleadores";
             this.btnGoleadores.Size = new System.Drawing.Size(400, 100);
             this.btnGoleadores.TabIndex = 4;
@@ -211,10 +427,10 @@
             this.panelInferior.Controls.Add(this.btnAcercaDe);
             this.panelInferior.Controls.Add(this.btnSalir);
             this.panelInferior.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelInferior.Location = new System.Drawing.Point(0, 550);
+            this.panelInferior.Location = new System.Drawing.Point(0, 580);
             this.panelInferior.Name = "panelInferior";
             this.panelInferior.Size = new System.Drawing.Size(900, 60);
-            this.panelInferior.TabIndex = 2;
+            this.panelInferior.TabIndex = 4;
             // 
             // btnAcercaDe
             // 
@@ -249,30 +465,74 @@
             this.btnSalir.UseVisualStyleBackColor = false;
             this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
+            // manualTecnicoCHMToolStripMenuItem
+            // 
+            this.manualTecnicoCHMToolStripMenuItem.Name = "manualTecnicoCHMToolStripMenuItem";
+            this.manualTecnicoCHMToolStripMenuItem.Size = new System.Drawing.Size(218, 24);
+            this.manualTecnicoCHMToolStripMenuItem.Text = "Manual Tecnico CHM";
+            this.manualTecnicoCHMToolStripMenuItem.Click += new System.EventHandler(this.manualTecnicoCHMToolStripMenuItem_Click);
+            // 
             // FormMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(900, 610);
+            this.ClientSize = new System.Drawing.Size(900, 662);
             this.Controls.Add(this.panelPrincipal);
             this.Controls.Add(this.panelInferior);
             this.Controls.Add(this.panelSuperior);
+            this.Controls.Add(this.statusStrip);
+            this.Controls.Add(this.menuStrip);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MainMenuStrip = this.menuStrip;
             this.MaximizeBox = false;
             this.Name = "FormMenu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Liga Zamaca - Menú Principal";
             this.Load += new System.EventHandler(this.FormMenu_Load);
+            this.menuStrip.ResumeLayout(false);
+            this.menuStrip.PerformLayout();
+            this.statusStrip.ResumeLayout(false);
+            this.statusStrip.PerformLayout();
             this.panelSuperior.ResumeLayout(false);
             this.panelSuperior.PerformLayout();
             this.panelPrincipal.ResumeLayout(false);
             this.panelInferior.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
+        // MenuStrip y sus elementos
+        private System.Windows.Forms.MenuStrip menuStrip;
+        private System.Windows.Forms.ToolStripMenuItem archivoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem gestionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem equiposToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem jugadoresToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem partidosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem informesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clasificacionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem goleadoresToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem estadisticasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ayudaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem manualUsuarioToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem acercaDeToolStripMenuItem;
+
+        // StatusStrip y sus elementos
+        private System.Windows.Forms.StatusStrip statusStrip;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelIcono;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelEstado;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelSpring;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelHoraIcono;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelHora;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelSeparador;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelVersion;
+
+        // Paneles y controles existentes
         private System.Windows.Forms.Panel panelSuperior;
         private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.Label lblSubtitulo;
@@ -283,9 +543,9 @@
         private System.Windows.Forms.Button btnPartidos;
         private System.Windows.Forms.Button btnClasificacion;
         private System.Windows.Forms.Button btnGoleadores;
-        private System.Windows.Forms.Button btnEstadisticas;
         private System.Windows.Forms.Panel panelInferior;
         private System.Windows.Forms.Button btnSalir;
         private System.Windows.Forms.Button btnAcercaDe;
+        private System.Windows.Forms.ToolStripMenuItem manualTecnicoCHMToolStripMenuItem;
     }
 }

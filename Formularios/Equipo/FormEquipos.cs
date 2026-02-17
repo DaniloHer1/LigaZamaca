@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Net;
 using System.Windows.Forms;
 using LigaZamaca.Modelos;
@@ -7,47 +9,48 @@ using LigaZamaca.AccesoDatos;
 
 namespace LigaZamaca.Formularios
 {
+    /// <summary>
+    /// Formulario para la gestión de equipos de la liga.
+    /// Permite añadir, modificar, eliminar, buscar y filtrar equipos.
+    /// </summary>
     public partial class FormEquipos : Form
     {
         private EquipoDAO equipoDao;
         private int idEquipoSeleccionado = 0;
+        private List<Equipo> listaEquiposCompleta;
 
         public FormEquipos()
         {
             InitializeComponent();
             equipoDao = new EquipoDAO();
+            listaEquiposCompleta = new List<Equipo>();
         }
 
         private void FormEquipos_Load(object sender, EventArgs e)
         {
             ConfigurarDataGridView();
+            ConfigurarMenuContextual();
+            ConfigurarFiltros();
             CargarEquipos();
         }
 
-        /// <summary>
-        /// Configura las columnas del DataGridView CON IMÁGENES
-        /// </summary>
+        #region Configuración del DataGridView
+
         private void ConfigurarDataGridView()
         {
-            // Limpiar columnas automáticas
             dataGridViewEquipos.AutoGenerateColumns = false;
             dataGridViewEquipos.Columns.Clear();
-
-            // Configurar selección
             dataGridViewEquipos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewEquipos.MultiSelect = false;
             dataGridViewEquipos.ReadOnly = true;
-            dataGridViewEquipos.RowTemplate.Height = 60; // ⭐ Altura para las imágenes
+            dataGridViewEquipos.RowTemplate.Height = 60;
 
-            // Ocultar columna de ID (pero mantenerla para usarla)
             DataGridViewTextBoxColumn colId = new DataGridViewTextBoxColumn();
             colId.Name = "IdEquipo";
-            colId.HeaderText = "ID";
             colId.DataPropertyName = "IdEquipo";
             colId.Visible = false;
             dataGridViewEquipos.Columns.Add(colId);
 
-            // ⭐ Columna ESCUDO (Imagen pequeña)
             DataGridViewImageColumn colEscudo = new DataGridViewImageColumn();
             colEscudo.Name = "Escudo";
             colEscudo.HeaderText = "Logo";
@@ -55,318 +58,353 @@ namespace LigaZamaca.Formularios
             colEscudo.ImageLayout = DataGridViewImageCellLayout.Zoom;
             dataGridViewEquipos.Columns.Add(colEscudo);
 
-            // Columna Nombre
             DataGridViewTextBoxColumn colNombre = new DataGridViewTextBoxColumn();
             colNombre.Name = "Nombre";
             colNombre.HeaderText = "Nombre";
             colNombre.DataPropertyName = "Nombre";
-            colNombre.Width = 180;
+            colNombre.Width = 200;
             dataGridViewEquipos.Columns.Add(colNombre);
 
-            // Columna Estadio
-            DataGridViewTextBoxColumn colEstadio = new DataGridViewTextBoxColumn();
-            colEstadio.Name = "Estadio";
-            colEstadio.HeaderText = "Estadio";
-            colEstadio.DataPropertyName = "Estadio";
-            colEstadio.Width = 150;
-            dataGridViewEquipos.Columns.Add(colEstadio);
-
-            // Columna Ciudad
             DataGridViewTextBoxColumn colCiudad = new DataGridViewTextBoxColumn();
             colCiudad.Name = "Ciudad";
             colCiudad.HeaderText = "Ciudad";
             colCiudad.DataPropertyName = "Ciudad";
-            colCiudad.Width = 120;
+            colCiudad.Width = 150;
             dataGridViewEquipos.Columns.Add(colCiudad);
 
-            // Columna Entrenador
-            DataGridViewTextBoxColumn colEntrenador = new DataGridViewTextBoxColumn();
-            colEntrenador.Name = "Entrenador";
-            colEntrenador.HeaderText = "Entrenador";
-            colEntrenador.DataPropertyName = "Entrenador";
-            colEntrenador.Width = 150;
-            dataGridViewEquipos.Columns.Add(colEntrenador);
+            DataGridViewTextBoxColumn colEstadio = new DataGridViewTextBoxColumn();
+            colEstadio.Name = "Estadio";
+            colEstadio.HeaderText = "Estadio";
+            colEstadio.DataPropertyName = "Estadio";
+            colEstadio.Width = 200;
+            dataGridViewEquipos.Columns.Add(colEstadio);
 
-            // Columna URL Escudo (OCULTA)
-            DataGridViewTextBoxColumn colUrlEscudo = new DataGridViewTextBoxColumn();
-            colUrlEscudo.Name = "UrlEscudo";
-            colUrlEscudo.HeaderText = "URL";
-            colUrlEscudo.DataPropertyName = "Escudo";
-            colUrlEscudo.Visible = false;
-            dataGridViewEquipos.Columns.Add(colUrlEscudo);
+            DataGridViewTextBoxColumn colFundacion = new DataGridViewTextBoxColumn();
+            colFundacion.Name = "AñoFundacion";
+            colFundacion.HeaderText = "Fundación";
+            colFundacion.DataPropertyName = "AñoFundacion";
+            colFundacion.Width = 100;
+            dataGridViewEquipos.Columns.Add(colFundacion);
         }
 
-        /// <summary>
-        /// Carga todos los equipos en el DataGridView CON IMÁGENES
-        /// </summary>
+        #endregion
+
+        #region Búsqueda y Filtros
+
+        private void ConfigurarFiltros()
+        {
+            cmbFiltroCiudad.Items.Clear();
+            cmbFiltroCiudad.Items.Add("-- Todas las ciudades --");
+            cmbFiltroCiudad.SelectedIndex = 0;
+
+            txtBusqueda.Text = "Buscar por nombre, estadio...";
+            txtBusqueda.ForeColor = Color.Gray;
+        }
+
+        private void txtBusqueda_Enter(object sender, EventArgs e)
+        {
+            if (txtBusqueda.Text == "Buscar por nombre, estadio...")
+            {
+                txtBusqueda.Text = "";
+                txtBusqueda.ForeColor = Color.Black;
+            }
+        }
+
+        private void txtBusqueda_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtBusqueda.Text))
+            {
+                txtBusqueda.Text = "Buscar por nombre, estadio...";
+                txtBusqueda.ForeColor = Color.Gray;
+            }
+        }
+
+        private void txtBusqueda_TextChanged(object sender, EventArgs e)
+        {
+            if (txtBusqueda.ForeColor != Color.Gray)
+            {
+                AplicarFiltros();
+            }
+        }
+
+        private void cmbFiltroCiudad_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            AplicarFiltros();
+        }
+
+        private void btnLimpiarFiltros_Click(object sender, EventArgs e)
+        {
+            txtBusqueda.Text = "Buscar por nombre, estadio...";
+            txtBusqueda.ForeColor = Color.Gray;
+            cmbFiltroCiudad.SelectedIndex = 0;
+            AplicarFiltros();
+        }
+
+        private void AplicarFiltros()
+        {
+            if (listaEquiposCompleta == null || listaEquiposCompleta.Count == 0)
+                return;
+
+            var resultados = listaEquiposCompleta.AsEnumerable();
+
+            string textoBusqueda = txtBusqueda.ForeColor == Color.Gray ? "" : txtBusqueda.Text.Trim().ToLower();
+            if (!string.IsNullOrEmpty(textoBusqueda))
+            {
+                resultados = resultados.Where(e =>
+                    (e.Nombre?.ToLower().Contains(textoBusqueda) ?? false) ||
+                    (e.Ciudad?.ToLower().Contains(textoBusqueda) ?? false) ||
+                    (e.Estadio?.ToLower().Contains(textoBusqueda) ?? false)
+                );
+            }
+
+            if (cmbFiltroCiudad.SelectedIndex > 0)
+            {
+                string ciudadSeleccionada = cmbFiltroCiudad.SelectedItem.ToString();
+                resultados = resultados.Where(e => e.Ciudad == ciudadSeleccionada);
+            }
+
+            MostrarEquipos(resultados.ToList());
+        }
+
+        #endregion
+
+        #region Menú Contextual
+
+        private void ConfigurarMenuContextual()
+        {
+            dataGridViewEquipos.ContextMenuStrip = contextMenuEquipos;
+            dataGridViewEquipos.MouseDown += DataGridViewEquipos_MouseDown;
+        }
+
+        private void DataGridViewEquipos_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                var hitTest = dataGridViewEquipos.HitTest(e.X, e.Y);
+                if (hitTest.RowIndex >= 0)
+                {
+                    dataGridViewEquipos.ClearSelection();
+                    dataGridViewEquipos.Rows[hitTest.RowIndex].Selected = true;
+                    dataGridViewEquipos.CurrentCell = dataGridViewEquipos.Rows[hitTest.RowIndex].Cells[1];
+                    modificarToolStripMenuItem.Enabled = true;
+                    eliminarToolStripMenuItem.Enabled = true;
+                    verDetalleToolStripMenuItem.Enabled = true;
+                    copiarNombreToolStripMenuItem.Enabled = true;
+                }
+                else
+                {
+                    modificarToolStripMenuItem.Enabled = false;
+                    eliminarToolStripMenuItem.Enabled = false;
+                    verDetalleToolStripMenuItem.Enabled = false;
+                    copiarNombreToolStripMenuItem.Enabled = false;
+                }
+            }
+        }
+
+        private void añadirToolStripMenuItem_Click(object sender, EventArgs e) => btnAñadirEquipo_Click(sender, e);
+        private void modificarToolStripMenuItem_Click(object sender, EventArgs e) => btnModificarEquipo_Click(sender, e);
+        private void eliminarToolStripMenuItem_Click(object sender, EventArgs e) => btnEliminar_Click(sender, e);
+        private void actualizarToolStripMenuItem_Click(object sender, EventArgs e) => CargarEquipos();
+
+        private void verDetalleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewEquipos.SelectedRows.Count > 0)
+            {
+                int idEquipo = Convert.ToInt32(dataGridViewEquipos.SelectedRows[0].Cells["IdEquipo"].Value);
+                FormEquipoDetalle formDetalle = new FormEquipoDetalle(idEquipo);
+                formDetalle.ShowDialog();
+                CargarEquipos();
+            }
+        }
+
+        private void copiarNombreToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewEquipos.SelectedRows.Count > 0)
+            {
+                string nombre = dataGridViewEquipos.SelectedRows[0].Cells["Nombre"].Value.ToString();
+                Clipboard.SetText(nombre);
+                MostrarNotificacion("✓ Nombre copiado");
+            }
+        }
+
+        private void MostrarNotificacion(string mensaje)
+        {
+            string tituloOriginal = this.Text;
+            this.Text = mensaje;
+            Timer timer = new Timer { Interval = 2000 };
+            timer.Tick += (s, args) => { this.Text = tituloOriginal; timer.Stop(); timer.Dispose(); };
+            timer.Start();
+        }
+
+        #endregion
+
+        #region Carga de Datos
+
         private void CargarEquipos()
         {
             try
             {
-                var equipos = equipoDao.ObtenerTodos();
-
-                // Limpiar DataGridView
-                dataGridViewEquipos.Rows.Clear();
-
-                // Agregar cada equipo con su imagen
-                foreach (var equipo in equipos)
-                {
-                    int rowIndex = dataGridViewEquipos.Rows.Add();
-                    DataGridViewRow row = dataGridViewEquipos.Rows[rowIndex];
-
-                    // Datos del equipo
-                    row.Cells["IdEquipo"].Value = equipo.IdEquipo;
-                    row.Cells["Nombre"].Value = equipo.Nombre;
-                    row.Cells["Estadio"].Value = equipo.Estadio;
-                    row.Cells["Ciudad"].Value = equipo.Ciudad;
-                    row.Cells["Entrenador"].Value = equipo.Entrenador;
-                    row.Cells["UrlEscudo"].Value = equipo.Escudo;
-
-                    // ⭐ Cargar imagen del escudo
-                    row.Cells["Escudo"].Value = CargarImagenEscudo(equipo.Escudo);
-                }
-
-                // Actualizar contador
-                lblTotal.Text = $"Total equipos: {equipos.Count}";
+                listaEquiposCompleta = equipoDao.ObtenerTodos();
+                ActualizarFiltroCiudades();
+                MostrarEquipos(listaEquiposCompleta);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar equipos: {ex.Message}",
-                               "Error",
-                               MessageBoxButtons.OK,
-                               MessageBoxIcon.Error);
+                MessageBox.Show($"Error al cargar equipos: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        /// <summary>
-        /// Carga la imagen del escudo desde URL o muestra imagen por defecto
-        /// </summary>
-        private Image CargarImagenEscudo(string urlEscudo)
+        private void ActualizarFiltroCiudades()
         {
-            try
-            {
-                if (string.IsNullOrWhiteSpace(urlEscudo))
-                {
-                    return ObtenerImagenPorDefecto();
-                }
+            var ciudadActual = cmbFiltroCiudad.SelectedItem?.ToString();
+            cmbFiltroCiudad.Items.Clear();
+            cmbFiltroCiudad.Items.Add("-- Todas las ciudades --");
 
-                // Si es una URL web
-                if (urlEscudo.StartsWith("http://") || urlEscudo.StartsWith("https://"))
+            var ciudades = listaEquiposCompleta
+                .Where(e => !string.IsNullOrEmpty(e.Ciudad))
+                .Select(e => e.Ciudad)
+                .Distinct()
+                .OrderBy(c => c);
+
+            foreach (var ciudad in ciudades)
+                cmbFiltroCiudad.Items.Add(ciudad);
+
+            if (!string.IsNullOrEmpty(ciudadActual) && cmbFiltroCiudad.Items.Contains(ciudadActual))
+                cmbFiltroCiudad.SelectedItem = ciudadActual;
+            else
+                cmbFiltroCiudad.SelectedIndex = 0;
+        }
+
+        private void MostrarEquipos(List<Equipo> equipos)
+        {
+            dataGridViewEquipos.DataSource = null;
+            dataGridViewEquipos.DataSource = equipos;
+
+            foreach (DataGridViewRow row in dataGridViewEquipos.Rows)
+            {
+                if (row.DataBoundItem is Equipo equipo)
                 {
-                    using (WebClient webClient = new WebClient())
+                    try
                     {
-                        byte[] imageBytes = webClient.DownloadData(urlEscudo);
-                        using (var ms = new System.IO.MemoryStream(imageBytes))
+                        if (!string.IsNullOrEmpty(equipo.Escudo))
                         {
-                            return Image.FromStream(ms);
+                            using (WebClient client = new WebClient())
+                            {
+                                byte[] imageData = client.DownloadData(equipo.Escudo);
+                                using (var ms = new System.IO.MemoryStream(imageData))
+                                {
+                                    row.Cells["Escudo"].Value = Image.FromStream(ms);
+                                }
+                            }
                         }
                     }
-                }
-                // Si es una ruta local
-                else if (System.IO.File.Exists(urlEscudo))
-                {
-                    return Image.FromFile(urlEscudo);
-                }
-                else
-                {
-                    return ObtenerImagenPorDefecto();
+                    catch { }
                 }
             }
-            catch
-            {
-                return ObtenerImagenPorDefecto();
-            }
+
+            lblTotal.Text = $"Mostrando: {equipos.Count} de {listaEquiposCompleta.Count}";
         }
 
-        /// <summary>
-        /// Genera una imagen por defecto (escudo genérico)
-        /// </summary>
-        private Image ObtenerImagenPorDefecto()
-        {
-            // Crear una imagen simple con las iniciales "FC"
-            Bitmap bmp = new Bitmap(50, 50);
-            using (Graphics g = Graphics.FromImage(bmp))
-            {
-                // Fondo azul
-                g.FillEllipse(new SolidBrush(Color.FromArgb(0, 122, 204)), 0, 0, 50, 50);
+        #endregion
 
-                // Borde blanco
-                g.DrawEllipse(new Pen(Color.White, 3), 3, 3, 44, 44);
+        #region Botones CRUD
 
-                // Texto "FC"
-                Font font = new Font("Arial", 14, FontStyle.Bold);
-                SizeF textSize = g.MeasureString("FC", font);
-                g.DrawString("FC", font, Brushes.White,
-                            (50 - textSize.Width) / 2,
-                            (50 - textSize.Height) / 2);
-            }
-            return bmp;
-        }
-
-        /// <summary>
-        /// Evento de selección cambiada - Muestra escudo grande
-        /// </summary>
-        private void dataGridViewEquipos_SelectionChanged(object sender, EventArgs e)
-        {
-            if (dataGridViewEquipos.SelectedRows.Count > 0)
-            {
-                btnModificarEquipo.Enabled = true;
-                btnEliminar.Enabled = true;
-
-                // ⭐ Mostrar escudo grande en PictureBox
-                string urlEscudo = dataGridViewEquipos.SelectedRows[0].Cells["UrlEscudo"].Value?.ToString();
-                MostrarEscudoGrande(urlEscudo);
-            }
-            else
-            {
-                btnModificarEquipo.Enabled = false;
-                btnEliminar.Enabled = false;
-
-                // Limpiar PictureBox
-                if (pictureBoxEscudo != null)
-                {
-                    pictureBoxEscudo.Image = null;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Muestra el escudo en grande en el PictureBox
-        /// </summary>
-        private void MostrarEscudoGrande(string urlEscudo)
-        {
-            try
-            {
-                if (pictureBoxEscudo != null)
-                {
-                    pictureBoxEscudo.Image = CargarImagenEscudo(urlEscudo);
-                }
-            }
-            catch (Exception ex)
-            {
-                // Error silencioso - solo muestra imagen por defecto
-                if (pictureBoxEscudo != null)
-                {
-                    pictureBoxEscudo.Image = ObtenerImagenPorDefecto();
-                }
-            }
-        }
-
-        /// <summary>
-        /// Botón Añadir Equipo
-        /// </summary>
         private void btnAñadirEquipo_Click(object sender, EventArgs e)
         {
             FormEquipoDetalle formDetalle = new FormEquipoDetalle();
-
             if (formDetalle.ShowDialog() == DialogResult.OK)
             {
-                CargarEquipos(); // Recargar la lista
-                MessageBox.Show("Equipo añadido correctamente",
-                               "Éxito",
-                               MessageBoxButtons.OK,
-                               MessageBoxIcon.Information);
+                CargarEquipos();
+                MessageBox.Show("Equipo añadido correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
-        /// <summary>
-        /// Botón Modificar Equipo
-        /// </summary>
         private void btnModificarEquipo_Click(object sender, EventArgs e)
         {
             if (dataGridViewEquipos.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Por favor, selecciona un equipo para modificar",
-                               "Aviso",
-                               MessageBoxButtons.OK,
-                               MessageBoxIcon.Warning);
+                MessageBox.Show("Por favor, selecciona un equipo para modificar", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // Obtener el ID del equipo seleccionado
             int idEquipo = Convert.ToInt32(dataGridViewEquipos.SelectedRows[0].Cells["IdEquipo"].Value);
-
-            // Abrir formulario de detalle en modo edición
             FormEquipoDetalle formDetalle = new FormEquipoDetalle(idEquipo);
 
             if (formDetalle.ShowDialog() == DialogResult.OK)
             {
-                CargarEquipos(); // Recargar la lista
-                MessageBox.Show("Equipo modificado correctamente",
-                               "Éxito",
-                               MessageBoxButtons.OK,
-                               MessageBoxIcon.Information);
+                CargarEquipos();
+                MessageBox.Show("Equipo modificado correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
-        /// <summary>
-        /// Botón Eliminar Equipo
-        /// </summary>
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             if (dataGridViewEquipos.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Por favor, selecciona un equipo para eliminar",
-                               "Aviso",
-                               MessageBoxButtons.OK,
-                               MessageBoxIcon.Warning);
+                MessageBox.Show("Por favor, selecciona un equipo para eliminar", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // Obtener datos del equipo seleccionado
             int idEquipo = Convert.ToInt32(dataGridViewEquipos.SelectedRows[0].Cells["IdEquipo"].Value);
             string nombreEquipo = dataGridViewEquipos.SelectedRows[0].Cells["Nombre"].Value.ToString();
 
-            // Confirmar eliminación
             DialogResult resultado = MessageBox.Show(
-                $"¿Estás seguro de que deseas eliminar el equipo '{nombreEquipo}'?\n\n" +
-                "ADVERTENCIA: También se eliminarán todos los jugadores, partidos y estadísticas relacionadas.",
-                "Confirmar eliminación",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Warning);
+                $"¿Estás seguro de que deseas eliminar el equipo '{nombreEquipo}'?\n\nADVERTENCIA: También se eliminarán todos los jugadores, partidos y estadísticas relacionadas.",
+                "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
             if (resultado == DialogResult.Yes)
             {
                 try
                 {
-                    bool eliminado = equipoDao.Eliminar(idEquipo);
-
-                    if (eliminado)
+                    if (equipoDao.Eliminar(idEquipo))
                     {
-                        CargarEquipos(); // Recargar la lista
-                        MessageBox.Show("Equipo eliminado correctamente",
-                                       "Éxito",
-                                       MessageBoxButtons.OK,
-                                       MessageBoxIcon.Information);
+                        CargarEquipos();
+                        MessageBox.Show("Equipo eliminado correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
                     {
-                        MessageBox.Show("No se pudo eliminar el equipo",
-                                       "Error",
-                                       MessageBoxButtons.OK,
-                                       MessageBoxIcon.Error);
+                        MessageBox.Show("No se pudo eliminar el equipo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Error al eliminar equipo: {ex.Message}\n\n" +
-                                   "El equipo puede tener jugadores o partidos asociados.",
-                                   "Error",
-                                   MessageBoxButtons.OK,
-                                   MessageBoxIcon.Error);
+                    MessageBox.Show($"Error al eliminar equipo: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
 
-        /// <summary>
-        /// Doble clic en una fila para editar
-        /// </summary>
-        private void dataGridViewEquipos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void dataGridViewEquipos_SelectionChanged(object sender, EventArgs e)
         {
-            if (e.RowIndex >= 0)
+            if (dataGridViewEquipos.SelectedRows.Count > 0)
             {
-                btnModificarEquipo_Click(sender, e);
+                idEquipoSeleccionado = Convert.ToInt32(dataGridViewEquipos.SelectedRows[0].Cells["IdEquipo"].Value);
+                btnModificarEquipo.Enabled = true;
+                btnEliminar.Enabled = true;
+                MostrarEscudoSeleccionado();
+            }
+            else
+            {
+                idEquipoSeleccionado = 0;
+                btnModificarEquipo.Enabled = false;
+                btnEliminar.Enabled = false;
             }
         }
+
+        private void MostrarEscudoSeleccionado()
+        {
+            try
+            {
+                if (dataGridViewEquipos.SelectedRows.Count > 0 && dataGridViewEquipos.SelectedRows[0].Cells["Escudo"].Value != null)
+                    pictureBoxEscudo.Image = (Image)dataGridViewEquipos.SelectedRows[0].Cells["Escudo"].Value;
+            }
+            catch { pictureBoxEscudo.Image = null; }
+        }
+
+        private void dataGridViewEquipos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0) btnModificarEquipo_Click(sender, e);
+        }
+
+        #endregion
     }
 }
