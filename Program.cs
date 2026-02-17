@@ -1,4 +1,4 @@
-﻿using LigaZamaca.Formularios;
+﻿using LigaZamaca.AccesoDatos;
 using LigaZamaca.Formularios.Menu;
 using LigaZamaca.Formularios.Splash;
 using System;
@@ -14,7 +14,7 @@ namespace LigaZamaca
     {
         /// <summary>
         /// Punto de entrada principal de la aplicación.
-        /// Muestra primero el SplashScreen y después el formulario principal.
+        /// Muestra primero el SplashScreen, verifica la BD y después el formulario principal.
         /// </summary>
         [STAThread]
         static void Main()
@@ -27,7 +27,19 @@ namespace LigaZamaca
             {
                 if (splash.ShowDialog() == DialogResult.OK)
                 {
-                    // Después del splash, mostrar el menú principal
+                    // ⭐ VERIFICAR Y CREAR BASE DE DATOS SI NO EXISTE
+                    if (!DatabaseInitializer.InicializarBaseDatos())
+                    {
+                        MessageBox.Show(
+                            "No se pudo inicializar la base de datos.\n\n" +
+                            "La aplicación se cerrará.",
+                            "Error crítico",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    // Si la BD está lista, mostrar el menú principal
                     Application.Run(new FormMenu());
                 }
             }
